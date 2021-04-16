@@ -21,7 +21,7 @@ public class BookClient
 
         //tell user on this side where it's connected to
         System.out.println("Connected to " + socket.getRemoteSocketAddress());
-        System.out.println("Enter SEARCH <bookName> or ADD <ISBN> <author> <publisher> <title> <language> <price>");
+        System.out.println("Enter SEARCH <bookName> or ADD <ISBN> <author> <publisher> <title> <language> <priceInGBP>");
 
         //set up a reader and writer connected to the server side, and scanner in for client user input
 
