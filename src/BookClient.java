@@ -3,11 +3,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class BookClient
-{
+public class BookClient {
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         if (args.length != 2) {
             System.err.println("Pass the server IP (should be localhost) as the first argument, and the port for the server as the second (should be 54321)");
             return;
@@ -21,19 +19,27 @@ public class BookClient
 
         //tell user on this side where it's connected to
         System.out.println("Connected to " + socket.getRemoteSocketAddress());
-        System.out.println("Enter SEARCH <bookName> or ADD <ISBN> <author> <publisher> <title> <language> <priceInGBP>");
+
+        //give user their options
+        System.out.println("***** Welcome to the Bookstore *****");
+        System.out.println("Enter SEARCH <bookName>");
+        System.out.println("Enter ADD <ISBN> <author> <publisher> <title> <language> <priceInGBP like 6.99>");
+        System.out.println("Enter UPDATE <ISBN> <field_to_update> <updated_data> (available field names are title and price)");
+        System.out.println("Enter DELETE <ISBN>");
 
         //set up a reader and writer connected to the server side, and scanner in for client user input
-
-        PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
         Scanner scanner = new Scanner(System.in);
+        PrintWriter outToServer = new PrintWriter(socket.getOutputStream(), true);
 
-        while(scanner.hasNext()){
+        while (scanner.hasNext()) {
             Scanner receivingIn = new Scanner(socket.getInputStream());
             //send out the message the user at this end has input
-            String userEnteredLine = scanner.nextLine();
-            outToServer.println(userEnteredLine);
+            String dbQuery = scanner.nextLine();
+            outToServer.println(dbQuery);
             System.out.println(receivingIn.nextLine());
         }
     }
+
+
+
 }
